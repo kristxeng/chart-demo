@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild, SimpleChanges } from '
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil, Subject, map, filter, switchMap, tap, ReplaySubject, combineLatestWith } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
-import { CandlestickData, ColorType, createChart } from 'lightweight-charts';
+import { ColorType, createChart, ISeriesApi } from 'lightweight-charts';
 
 @Component({
   selector: 'app-chart',
@@ -11,10 +11,10 @@ import { CandlestickData, ColorType, createChart } from 'lightweight-charts';
 })
 export class ChartComponent implements OnInit {
 
-  @ViewChild('container') container: ElementRef;
   @Input() interval: string;
   private interval$ = new ReplaySubject<string>(1)
   private destroy$ = new Subject<boolean>();
+  series: ISeriesApi<"Candlestick">;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,6 +22,8 @@ export class ChartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.createChart()
+
     this.route.params
       .pipe(
         map((params) => params['symbol']),
@@ -31,7 +33,8 @@ export class ChartComponent implements OnInit {
         takeUntil(this.destroy$)
       )
       .subscribe((data) => {
-        this.createChart(data);
+        this.series.setData(data);
+
       });
   }
 
@@ -60,22 +63,21 @@ export class ChartComponent implements OnInit {
     );
   }
 
-  createChart(data: CandlestickData[]) {
+  createChart() {
     const options = {
       layout: {
         textColor: 'black',
-        background: { type: ColorType.Solid, color: 'white ' },
+        background: { type: ColorType.Solid, color: 'white' },
       },
     };
-    const chart = createChart(this.container.nativeElement, options);
-    const series = chart.addCandlestickSeries({
+    const chart = createChart('container', options);
+    this.series = chart.addCandlestickSeries({
       upColor: '#ef5350',
       downColor: '#26a69a',
       borderVisible: false,
       wickUpColor: '#ef5350',
       wickDownColor: '#26a69a',
     });
-    series.setData(data);
     chart.timeScale().fitContent();
   }
 }
