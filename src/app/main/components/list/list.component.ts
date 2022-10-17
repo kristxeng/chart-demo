@@ -49,15 +49,15 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   getStream(symbols: string[], initPrices: Price[]): Observable<Price[]> {
-    const StreamNames = symbols
+    const streamNames = symbols
       .map(s => s.toLowerCase())
       .map(s => `${s}@miniTicker`);
-    return this.streamService.subscribeByStreamNames(StreamNames).pipe(
-      filter((data: MiniTicker) => data?.e === '24hrMiniTicker'),
-      map((data) => {
-        const changed = initPrices.find((p: Price) => p.symbol === data.s);
+    return this.streamService.subscribeByStreamNames(streamNames).pipe(
+      filter(data => data?.e === '24hrMiniTicker'),
+      map((d: MiniTicker) => {
+        const changed = initPrices.find((p: Price) => p.symbol === d.s); // FIXME: wrong comparison
         if (changed) {
-          changed.price = data.c;
+          changed.price = d.c;
         }
         return initPrices;
       })

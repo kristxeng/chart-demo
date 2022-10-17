@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -13,7 +14,10 @@ export class CardComponent implements OnInit {
   isChanging = false;
   timer: number;
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
   }
@@ -30,6 +34,6 @@ export class CardComponent implements OnInit {
   }
 
   onClick() {
-    console.log('on card click')
+    this.router.navigate([this.symbol], { relativeTo: this.route });
   }
 }

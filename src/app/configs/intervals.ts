@@ -1,0 +1,18 @@
+export const Intervals = [
+  { code: '1s', title: '1 Second' },
+  { code: '1m', title: '1 Minute' },
+  { code: '3m', title: '3 Minutes' },
+  { code: '5m', title: '5 Minutes' },
+  { code: '15m', title: '15 Minutes' },
+  { code: '30m', title: '30 Minutes' },
+  { code: '1h', title: '1 Hour' },
+  { code: '2h', title: '2 Hours' },
+  { code: '4h', title: '4 Hours' },
+  { code: '6h', title: '6 Hours' },
+  { code: '8h', title: '8 Hours' },
+  { code: '12h', title: '12 Hours' },
+  { code: '1d', title: '1 Day' },
+  { code: '3d', title: '3 Days' },
+  { code: '1w', title: '1 Week' },
+  { code: '1M', title: '1 Month' },
+]
