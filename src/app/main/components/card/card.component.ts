@@ -23,7 +23,7 @@ export class CardComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['price']) {
+    if (changes['price'] && !changes['price'].firstChange) {
       !!this.timer && clearTimeout(this.timer);
       this.isChanging = true;
       this.timer = window.setTimeout(() => {
