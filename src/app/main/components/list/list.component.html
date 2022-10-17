@@ -1,0 +1,5 @@
+<app-card 
+  *ngFor="let item of prices$ | async"
+  [symbol]="item.symbol"
+  [price]="item.price"
+></app-card>
