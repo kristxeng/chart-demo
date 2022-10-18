@@ -1,5 +1,7 @@
+import { UTCTimestamp } from "lightweight-charts";
+
 export interface KLine {
-  time: string;
+  time: UTCTimestamp;
   open: string;
   close: string;
   high: string;
