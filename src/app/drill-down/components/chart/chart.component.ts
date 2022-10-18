@@ -90,6 +90,13 @@ export class ChartComponent implements OnInit {
       )
       .subscribe((data) => {
         this.series.setData(data);
+        this.series.priceScale().applyOptions({
+          autoScale: false,
+          scaleMargins: {
+            top: 0.1,
+            bottom: 0.1,
+          },
+        });
         this.chart.timeScale().fitContent();
       });
   }
