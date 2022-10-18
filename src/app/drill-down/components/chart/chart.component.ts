@@ -51,7 +51,6 @@ export class ChartComponent implements OnInit {
 
   kLine(symbol: string, interval: string) {
     return this.apiService.getKLines$(symbol, interval).pipe(
-      tap((data) => console.log(data)),
       map((data) =>
         data.map((item) => {
           const [time, open, high, low, close] = item;
